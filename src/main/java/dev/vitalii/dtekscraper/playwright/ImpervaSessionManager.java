@@ -1,9 +1,10 @@
 package dev.vitalii.dtekscraper.playwright;
 
 import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.PlaywrightException;
-import com.microsoft.playwright.options.LoadState;
+import com.microsoft.playwright.options.WaitForSelectorState;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.Getter;
@@ -76,13 +77,12 @@ public class ImpervaSessionManager {
         try (final Page page = context.newPage()) {
 
             page.navigate(props.browserUrl());
-            page.waitForLoadState(LoadState.NETWORKIDLE);
-            page.waitForTimeout(3000);  // 3-second buffer for background WAF scripts
 
+            final Locator csrfLocator = page.locator(props.page().locator().value());
 
-            final String token = page
-                    .locator(props.page().locator().value())
-                    .getAttribute(props.page().locator().attribute());
+            csrfLocator.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.ATTACHED));
+
+            final String token = csrfLocator.getAttribute(props.page().locator().attribute());
 
             log.info("CSRF Token acquired.");
 
