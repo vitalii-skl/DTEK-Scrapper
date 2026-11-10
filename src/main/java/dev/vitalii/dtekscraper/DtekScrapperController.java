@@ -1,5 +1,8 @@
 package dev.vitalii.dtekscraper;
 
+import dev.vitalii.dtekscraper.playwright.HomeNumRequest;
+import dev.vitalii.dtekscraper.playwright.HomeNumResponse;
+import dev.vitalii.dtekscraper.playwright.StreetsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,5 +19,10 @@ public class DtekScrapperController {
     @GetMapping("streets")
     public StreetsResponse streets() {
         return service.getStreetsData();
+    }
+
+    @GetMapping("home-num")
+    public HomeNumResponse homeNum(HomeNumRequest request) {
+        return service.getHomeNum(request);
     }
 }
