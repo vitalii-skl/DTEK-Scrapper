@@ -5,12 +5,18 @@ import com.microsoft.playwright.options.LoadState;
 import com.microsoft.playwright.options.RequestOptions;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Log4j2
+@RequiredArgsConstructor
 @Service
 public class DtekScraperService {
+
+    private final ObjectMapper objectMapper;
 
     private Playwright playwright;
     private Browser browser;
@@ -58,7 +64,7 @@ public class DtekScraperService {
         page.close();
     }
 
-    public String getStreetsData() {
+    public StreetsResponse getStreetsData() {
         APIResponse response = executeStreetsRequest();
 
         // If the session expired (403 Forbidden), refresh it and retry exactly once
@@ -74,7 +80,11 @@ public class DtekScraperService {
             throw new RuntimeException("API request failed with HTTP " + response.status() + ": " + response.text());
         }
 
-        return response.text();
+        try {
+            return objectMapper.readValue(response.text(), StreetsResponse.class);
+        } catch (JacksonException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Extracted the actual HTTP call to keep the retry logic clean
@@ -108,7 +118,7 @@ public class DtekScraperService {
     }
 
     static void main() {
-        final DtekScraperService service = new DtekScraperService();
+        final DtekScraperService service = new DtekScraperService(new ObjectMapper());
 
         service.initSession();
         System.out.println(service.getStreetsData());
