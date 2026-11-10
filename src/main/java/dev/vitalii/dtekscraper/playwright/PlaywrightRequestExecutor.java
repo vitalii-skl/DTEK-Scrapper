@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @RequiredArgsConstructor
 @Service
-public class PlaywrightFactory {
+public class PlaywrightRequestExecutor {
 
     private final BrowserProperties properties;
     private final ImpervaSessionManager sessionManager;
@@ -29,7 +29,7 @@ public class PlaywrightFactory {
         }
 
         if (!response.ok()) {
-            throw new RuntimeException("API request failed with HTTP " + response.status() + ": " + response.text());
+            throw new DtekException(response.status(), response.text());
         }
 
         return response.text();
