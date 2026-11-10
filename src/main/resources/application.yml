@@ -4,3 +4,15 @@ server:
 spring:
   application:
     name: DtekScraper
+
+playwright:
+  browser-url: https://www.dtek-kem.com.ua/ua/shutdowns
+  request-url: https://www.dtek-kem.com.ua/ua/ajax
+  user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:159.0) Gecko/20100101 Firefox/159.0
+  headers:
+    accept: application/json, text/javascript, */*; q=0.01
+    content-type: application/x-www-form-urlencoded; charset=UTF-8
+  page:
+    locator:
+      value: meta[name='csrf-token']
+      attribute: content
