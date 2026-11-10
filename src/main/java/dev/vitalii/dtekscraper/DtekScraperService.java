@@ -1,6 +1,6 @@
 package dev.vitalii.dtekscraper;
 
-import com.microsoft.playwright.APIResponse;
+import com.microsoft.playwright.options.FormData;
 import dev.vitalii.dtekscraper.playwright.PlaywrightFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,23 +18,11 @@ public class DtekScraperService {
 
 
     public StreetsResponse getStreetsData() {
-        APIResponse response = playwrightFactory.executeStreetsRequest();
-
-        // If the session expired (403 Forbidden), refresh it and retry exactly once
-        if (response.status() == 403) {
-            log.info("Session expired (403). Forcing refresh...");
-            playwrightFactory.refreshSession();
-
-            // Retry
-            response = playwrightFactory.executeStreetsRequest();
-        }
-
-        if (!response.ok()) {
-            throw new RuntimeException("API request failed with HTTP " + response.status() + ": " + response.text());
-        }
+        final FormData formData = FormData.create().append("method", "getStreets");
+        final String response = playwrightFactory.executeRequest(formData);
 
         try {
-            return objectMapper.readValue(response.text(), StreetsResponse.class);
+            return objectMapper.readValue(response, StreetsResponse.class);
         } catch (JacksonException e) {
             throw new RuntimeException(e);
         }

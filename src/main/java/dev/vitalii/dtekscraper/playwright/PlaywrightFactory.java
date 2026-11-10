@@ -1,15 +1,10 @@
 package dev.vitalii.dtekscraper.playwright;
 
 import com.microsoft.playwright.APIResponse;
-import com.microsoft.playwright.BrowserContext;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.LoadState;
+import com.microsoft.playwright.options.FormData;
 import com.microsoft.playwright.options.RequestOptions;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -18,57 +13,31 @@ import org.springframework.stereotype.Service;
 public class PlaywrightFactory {
 
     private final BrowserProperties properties;
-    private final ObjectProvider<BrowserContext> contextProvider;
-
-    private BrowserContext currentContext;
-    private String csrfToken;
+    private final ImpervaSessionManager sessionManager;
 
 
-    @PostConstruct
-    public void initSession() {
-        // Establish the initial session
-        refreshSession();
-    }
+    public String executeRequest(FormData formData) {
+        APIResponse response = request(formData);
 
-    @PreDestroy
-    public void cleanup() {
-        if (currentContext != null) {
-            currentContext.close();
-        }
-    }
+        // If the session expired (403 Forbidden), refresh it and retry exactly once
+        if (response.status() == 403) {
+            log.info("Session expired (403). Forcing refresh...");
+            sessionManager.refreshSession();
 
-    /**
-     * Synchronized prevents multiple threads from trying to refresh the session at the exact same time if several API calls fail simultaneously.
-     */
-    public synchronized void refreshSession() {
-        log.info("Establishing/Refreshing Imperva session...");
-
-        // CRITICAL FOR UPTIME: Close the old browser context to prevent severe memory leaks
-        if (currentContext != null) {
-            currentContext.close();
+            // Retry
+            response = request(formData);
         }
 
-        currentContext = contextProvider.getObject();
+        if (!response.ok()) {
+            throw new RuntimeException("API request failed with HTTP " + response.status() + ": " + response.text());
+        }
 
-        final Page page = currentContext.newPage();
-        page.navigate(properties.browserUrl());
-
-        page.waitForLoadState(LoadState.NETWORKIDLE);
-
-        // 3-second buffer for background WAF scripts:
-        page.waitForTimeout(3000);
-
-        csrfToken = page.locator(properties.page().locator().value()).getAttribute(properties.page().locator().attribute());
-
-        log.info("Session active. New CSRF Token: {}", csrfToken);
-
-        // Close the tab to free memory; cookies stay in the context:
-        page.close();
+        return response.text();
     }
 
     // Extracted the actual HTTP call to keep the retry logic clean
-    public APIResponse executeStreetsRequest() {
-        return currentContext.request()
+    public APIResponse request(FormData formData) {
+        return sessionManager.getActiveContext().request()
                 .post(
                         properties.requestUrl(),
                         RequestOptions.create()
@@ -76,8 +45,8 @@ public class PlaywrightFactory {
                                 .setHeader("Content-Type", properties.headers().contentType())
                                 .setHeader("Referer", properties.browserUrl())
                                 .setHeader("X-Requested-With", "XMLHttpRequest")
-                                .setHeader("X-CSRF-Token", csrfToken)
-                                .setData("method=getStreets")
+                                .setHeader("X-CSRF-Token", sessionManager.getCsrfToken())
+                                .setForm(formData)
                 );
     }
 }
