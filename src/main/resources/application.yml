@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: DtekScraper
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
 
 playwright:
   browser-url: https://www.dtek-kem.com.ua/ua/shutdowns

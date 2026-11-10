@@ -15,16 +15,15 @@ public record HomeNumResponse(
         Map<String, Datum> data,
         Fact fact,
         Preset preset
-        ) {
-
+) {
     record Datum(
             String sub_type,
             String start_date,
             String end_date,
             String type,
             List<String> sub_type_reason,
-            String voluntarily,
-            String cek
+            Object voluntarily,
+            Object cek
     ) {
     }
 
@@ -32,7 +31,8 @@ public record HomeNumResponse(
             Map<String, Map<String, Map<String, String>>> data,
             String update,
             int today
-    ) {}
+    ) {
+    }
 
     record Preset(
             Map<String, String> days,
