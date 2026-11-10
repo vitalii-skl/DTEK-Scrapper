@@ -1,4 +1,4 @@
-package dev.vitalii.dtekscraper.playwright;
+package dev.vitalii.dtekscraper.integration;
 
 import java.util.List;
 import java.util.Map;

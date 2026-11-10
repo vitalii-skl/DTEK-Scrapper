@@ -1,4 +1,4 @@
-package dev.vitalii.dtekscraper.playwright;
+package dev.vitalii.dtekscraper.integration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,4 +1,4 @@
-package dev.vitalii.dtekscraper.playwright;
+package dev.vitalii.dtekscraper.integration;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;

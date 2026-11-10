@@ -1,8 +1,8 @@
 package dev.vitalii.dtekscraper;
 
-import dev.vitalii.dtekscraper.playwright.HomeNumRequest;
-import dev.vitalii.dtekscraper.playwright.HomeNumResponse;
-import dev.vitalii.dtekscraper.playwright.StreetsResponse;
+import dev.vitalii.dtekscraper.integration.HomeNumRequest;
+import dev.vitalii.dtekscraper.integration.HomeNumResponse;
+import dev.vitalii.dtekscraper.integration.StreetsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

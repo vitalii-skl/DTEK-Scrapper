@@ -1,4 +1,4 @@
-package dev.vitalii.dtekscraper.playwright;
+package dev.vitalii.dtekscraper.integration;
 
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Locator;

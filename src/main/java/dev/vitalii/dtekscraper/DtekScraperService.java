@@ -1,7 +1,7 @@
 package dev.vitalii.dtekscraper;
 
 import com.microsoft.playwright.options.FormData;
-import dev.vitalii.dtekscraper.playwright.*;
+import dev.vitalii.dtekscraper.integration.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
