@@ -6,6 +6,7 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import tools.jackson.core.JacksonException;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -30,6 +31,19 @@ public class GlobalExceptionHandler {
 
         detail.setTitle("Validation Failed");
         detail.setProperty("invalidParams", errors);
+        detail.setProperty("timestamp", Instant.now());
+
+        return detail;
+    }
+
+    @ExceptionHandler(JacksonException.class)
+    public ProblemDetail handleJacksonException(JacksonException e) {
+        final ProblemDetail detail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_GATEWAY,
+                "Failed to parse data from the external provider."
+        );
+
+        detail.setTitle("Upstream Integration Error");
         detail.setProperty("timestamp", Instant.now());
 
         return detail;

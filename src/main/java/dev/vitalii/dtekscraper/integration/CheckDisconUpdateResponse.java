@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 public record CheckDisconUpdateResponse(
-        boolean result,
+        Boolean result,
         Fact fact,
         Preset preset,
-        boolean showTableSchedule,
-        boolean showUserGroup
+        Boolean showTableSchedule,
+        Boolean showUserGroup
 ) {
     record Datum(
             String sub_type,
@@ -24,7 +24,7 @@ public record CheckDisconUpdateResponse(
     record Fact(
             Map<String, Map<String, Map<String, String>>> data,
             String update,
-            int today
+            Integer today
     ) {
     }
 

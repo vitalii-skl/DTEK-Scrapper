@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 public record HomeNumResponse(
-        boolean result,
-        boolean showCurOutageParam,
-        boolean showCurSchedule,
-        boolean showTableSchedule,
-        boolean showTablePlan,
-        boolean showTableFact,
-        boolean showUserGroup,
+        Boolean result,
+        Boolean showCurOutageParam,
+        Boolean showCurSchedule,
+        Boolean showTableSchedule,
+        Boolean showTablePlan,
+        Boolean showTableFact,
+        Boolean showUserGroup,
         String updateTimestamp,
         Map<String, Datum> data,
         Fact fact,
@@ -30,7 +30,7 @@ public record HomeNumResponse(
     record Fact(
             Map<String, Map<String, Map<String, String>>> data,
             String update,
-            int today
+            Integer today
     ) {
     }
 
