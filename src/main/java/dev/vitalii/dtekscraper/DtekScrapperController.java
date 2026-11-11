@@ -18,9 +18,9 @@ public class DtekScrapperController {
     private final DtekScraperService service;
 
 
-    @GetMapping("streets")
-    public StreetsResponse streets() {
-        return service.getStreetsData();
+    @GetMapping("get-streets")
+    public StreetsResponse getStreets() {
+        return service.getStreets();
     }
 
     @GetMapping("home-num")

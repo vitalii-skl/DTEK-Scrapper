@@ -17,7 +17,7 @@ public class DtekScraperService {
     private final PlaywrightRequestExecutor playwrightRequestExecutor;
 
 
-    public StreetsResponse getStreetsData() {
+    public StreetsResponse getStreets() {
         final String response = playwrightRequestExecutor
                 .executeRequest(FormDataProducer.forGetStreets());
 
