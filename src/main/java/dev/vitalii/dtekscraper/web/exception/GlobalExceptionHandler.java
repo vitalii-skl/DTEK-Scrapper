@@ -15,8 +15,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler
-    public ProblemDetail handle(MethodArgumentNotValidException e) {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ProblemDetail handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         final ProblemDetail detail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.BAD_REQUEST,
                 "The request contains invalid parameters");
