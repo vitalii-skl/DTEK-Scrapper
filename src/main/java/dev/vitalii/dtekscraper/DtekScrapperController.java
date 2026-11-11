@@ -1,5 +1,6 @@
 package dev.vitalii.dtekscraper;
 
+import dev.vitalii.dtekscraper.integration.CheckDisconUpdateResponse;
 import dev.vitalii.dtekscraper.integration.HomeNumRequest;
 import dev.vitalii.dtekscraper.integration.HomeNumResponse;
 import dev.vitalii.dtekscraper.integration.StreetsResponse;
@@ -25,5 +26,10 @@ public class DtekScrapperController {
     @GetMapping("home-num")
     public HomeNumResponse homeNum(@Valid HomeNumRequest request) {
         return service.getHomeNum(request);
+    }
+
+    @GetMapping("check-discon-update")
+    public CheckDisconUpdateResponse checkDisconUpdate() {
+        return service.checkDisconUpdate();
     }
 }

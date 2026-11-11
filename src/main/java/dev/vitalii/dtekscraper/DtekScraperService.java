@@ -38,4 +38,15 @@ public class DtekScraperService {
             throw new DtekException(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         }
     }
+
+    public CheckDisconUpdateResponse checkDisconUpdate() {
+        final String response = playwrightRequestExecutor
+                .executeRequest(FormDataProducer.forCheckDisconUpdate());
+
+        try {
+            return objectMapper.readValue(response, CheckDisconUpdateResponse.class);
+        } catch (JacksonException e) {
+            throw new DtekException(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        }
+    }
 }
