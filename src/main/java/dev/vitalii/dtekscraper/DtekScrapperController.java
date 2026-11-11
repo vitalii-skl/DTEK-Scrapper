@@ -3,6 +3,7 @@ package dev.vitalii.dtekscraper;
 import dev.vitalii.dtekscraper.integration.HomeNumRequest;
 import dev.vitalii.dtekscraper.integration.HomeNumResponse;
 import dev.vitalii.dtekscraper.integration.StreetsResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class DtekScrapperController {
     }
 
     @GetMapping("home-num")
-    public HomeNumResponse homeNum(HomeNumRequest request) {
+    public HomeNumResponse homeNum(@Valid HomeNumRequest request) {
         return service.getHomeNum(request);
     }
 }

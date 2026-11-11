@@ -1,7 +1,9 @@
 package dev.vitalii.dtekscraper.integration;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public record HomeNumRequest(
-        String street,
-        String houseNumber
+        @NotEmpty String street,
+        @NotEmpty String houseNumber
 ) {
 }
