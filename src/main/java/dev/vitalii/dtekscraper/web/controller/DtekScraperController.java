@@ -1,6 +1,7 @@
-package dev.vitalii.dtekscraper;
+package dev.vitalii.dtekscraper.web.controller;
 
-import dev.vitalii.dtekscraper.integration.*;
+import dev.vitalii.dtekscraper.integration.DtekScraperService;
+import dev.vitalii.dtekscraper.integration.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

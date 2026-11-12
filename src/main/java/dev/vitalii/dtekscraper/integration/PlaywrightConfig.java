@@ -10,16 +10,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 @Configuration
-public class PlaywrightConfig {
+class PlaywrightConfig {
 
     @Bean(destroyMethod = "close")
-    public Playwright playwright() {
+    Playwright playwright() {
         return Playwright
                 .create();
     }
 
     @Bean(destroyMethod = "close")
-    public Browser browser(Playwright playwright) {
+    Browser browser(Playwright playwright) {
         return playwright
                 .chromium()
                 .launch(
@@ -31,7 +31,7 @@ public class PlaywrightConfig {
 
     @Bean
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public BrowserContext browserContext(Browser browser, BrowserProperties browserProperties) {
+    BrowserContext browserContext(Browser browser, BrowserProperties browserProperties) {
         return browser.newContext(
                 new Browser
                         .NewContextOptions()

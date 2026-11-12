@@ -1,6 +1,6 @@
-package dev.vitalii.dtekscraper;
+package dev.vitalii.dtekscraper.integration;
 
-import dev.vitalii.dtekscraper.integration.*;
+import dev.vitalii.dtekscraper.integration.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

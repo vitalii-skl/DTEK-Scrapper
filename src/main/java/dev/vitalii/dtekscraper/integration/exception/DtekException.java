@@ -1,4 +1,4 @@
-package dev.vitalii.dtekscraper.integration;
+package dev.vitalii.dtekscraper.integration.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

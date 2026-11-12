@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @DependsOn("browser")
 @Component
-public class ImpervaSessionManager {
+class ImpervaSessionManager {
 
     private final BrowserProperties properties;
     private final ObjectProvider<BrowserContext> contextProvider;
@@ -50,7 +50,7 @@ public class ImpervaSessionManager {
         }
     }
 
-    public synchronized void refreshSession() {
+    synchronized void refreshSession() {
         log.info("Refreshing Imperva session...");
 
         cleanup();  // CRITICAL FOR UPTIME: Close the old browser context (if open) to prevent severe memory leaks

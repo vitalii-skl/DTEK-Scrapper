@@ -1,4 +1,4 @@
-package dev.vitalii.dtekscraper.integration;
+package dev.vitalii.dtekscraper.integration.dto;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;

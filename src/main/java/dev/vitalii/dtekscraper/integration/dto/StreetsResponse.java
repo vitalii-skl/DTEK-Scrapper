@@ -1,4 +1,4 @@
-package dev.vitalii.dtekscraper.integration;
+package dev.vitalii.dtekscraper.integration.dto;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ package dev.vitalii.dtekscraper.integration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "playwright")
-public record BrowserProperties(
+record BrowserProperties(
         String browserUrl,
         String requestUrl,
         String userAgent,
