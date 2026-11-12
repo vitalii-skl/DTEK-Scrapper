@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("api/v1")
 @RestController
-public class DtekScrapperController {
+public class DtekScraperController {
 
     private final DtekScraperService service;
 
