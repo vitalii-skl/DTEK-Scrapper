@@ -24,7 +24,7 @@ public class DtekScraperService {
 
     public HomeNumResponse getHomeNum(HomeNumRequest request) {
         final String response = playwrightRequestExecutor
-                .executeRequest(FormDataProducer.forGetHomeNum(request.street(), request.houseNumber()));
+                .executeRequest(FormDataProducer.forGetHomeNum(request.street(), request.houseNum(), request.updateFact()));
 
         return objectMapper.readValue(response, HomeNumResponse.class);
     }

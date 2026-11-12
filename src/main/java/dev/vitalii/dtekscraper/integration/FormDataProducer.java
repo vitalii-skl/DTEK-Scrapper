@@ -18,7 +18,7 @@ public class FormDataProducer {
                 .append(METHOD, "getStreets");
     }
 
-    public static FormData forGetHomeNum(String street, String houseNumber) {
+    public static FormData forGetHomeNum(String street, String houseNumber, String updateFact) {
         return FormData.create()
                 .append(METHOD, "getHomeNum")
                 .append("data[0][name]", "street")
@@ -26,7 +26,7 @@ public class FormDataProducer {
                 .append("data[1][name]", "house_num")
                 .append("data[1][value]", houseNumber)
                 .append("data[2][name]", "updateFact")
-                .append("data[2][value]", getNow());
+                .append("data[2][value]", updateFact);
     }
 
     public static FormData forCheckDisconUpdate() {
