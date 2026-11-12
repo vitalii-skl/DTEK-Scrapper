@@ -1,9 +1,6 @@
 package dev.vitalii.dtekscraper;
 
-import dev.vitalii.dtekscraper.integration.CheckDisconUpdateResponse;
-import dev.vitalii.dtekscraper.integration.HomeNumRequest;
-import dev.vitalii.dtekscraper.integration.HomeNumResponse;
-import dev.vitalii.dtekscraper.integration.StreetsResponse;
+import dev.vitalii.dtekscraper.integration.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +26,7 @@ public class DtekScrapperController {
     }
 
     @GetMapping("check-discon-update")
-    public CheckDisconUpdateResponse checkDisconUpdate() {
-        return service.checkDisconUpdate();
+    public CheckDisconUpdateResponse checkDisconUpdate(@Valid CheckDisconUpdateRequest request) {
+        return service.checkDisconUpdate(request);
     }
 }

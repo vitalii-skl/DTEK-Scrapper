@@ -29,9 +29,9 @@ public class DtekScraperService {
         return objectMapper.readValue(response, HomeNumResponse.class);
     }
 
-    public CheckDisconUpdateResponse checkDisconUpdate() {
+    public CheckDisconUpdateResponse checkDisconUpdate(CheckDisconUpdateRequest request) {
         final String response = playwrightRequestExecutor
-                .executeRequest(FormDataProducer.forCheckDisconUpdate());
+                .executeRequest(FormDataProducer.forCheckDisconUpdate(request.update()));
 
         return objectMapper.readValue(response, CheckDisconUpdateResponse.class);
     }

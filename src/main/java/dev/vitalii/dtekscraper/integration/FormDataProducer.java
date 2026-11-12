@@ -3,10 +3,6 @@ package dev.vitalii.dtekscraper.integration;
 import com.microsoft.playwright.options.FormData;
 import lombok.experimental.UtilityClass;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-
 @UtilityClass
 public class FormDataProducer {
 
@@ -29,13 +25,9 @@ public class FormDataProducer {
                 .append("data[2][value]", updateFact);
     }
 
-    public static FormData forCheckDisconUpdate() {
+    public static FormData forCheckDisconUpdate(String update) {
         return FormData.create()
                 .append(METHOD, "checkDisconUpdate")
-                .append("update", getNow());
-    }
-
-    private static String getNow() {
-        return LocalDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+                .append("update", update);
     }
 }
