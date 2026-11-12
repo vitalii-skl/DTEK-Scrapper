@@ -10,17 +10,6 @@ public record CheckDisconUpdateResponse(
         Boolean showTableSchedule,
         Boolean showUserGroup
 ) {
-    record Datum(
-            String sub_type,
-            String start_date,
-            String end_date,
-            String type,
-            List<String> sub_type_reason,
-            Object voluntarily,
-            Object cek
-    ) {
-    }
-
     record Fact(
             Map<String, Map<String, Map<String, String>>> data,
             String update,
