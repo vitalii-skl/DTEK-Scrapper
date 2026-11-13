@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@RequestMapping("api/v1")
+@RequestMapping("/api/dtek-integration/v1")
 @RestController
 public class DtekScraperController {
 
     private final DtekScraperService service;
 
 
-    @GetMapping("get-streets")
+    @GetMapping("/getStreets")
     public StreetsResponse getStreets() {
         return service.getStreets();
     }
 
-    @GetMapping("home-num")
+    @GetMapping("/getHomeNum")
     public HomeNumResponse homeNum(@Valid HomeNumRequest request) {
         return service.getHomeNum(request);
     }
 
-    @GetMapping("check-discon-update")
+    @GetMapping("/checkDisconUpdate")
     public CheckDisconUpdateResponse checkDisconUpdate(@Valid CheckDisconUpdateRequest request) {
         return service.checkDisconUpdate(request);
     }
